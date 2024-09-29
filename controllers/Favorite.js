@@ -20,6 +20,10 @@ exports.GetOneFavorite = async (req, res, next) => {
 
     const user_id = req.params.id;
 
+    if(!user_id){
+        res.status(404).send({error: 'Missing information'});
+    }
+
     try{
         const connection = await sql.createConnection(dbconf);
         const [result] = await connection.execute('SELECT books.* FROM books JOIN favorites ON books.book_id = favorites.book_id WHERE favorites.user_id = ?',[user_id]);
@@ -54,7 +58,7 @@ exports.UpdateFavorite = async (req, res, next) => {
     const id = req.params.id;
     const { user_id, book_id } = req.body;
 
-    if(!user_id || !book_id){
+    if(!user_id || !book_id || !id){
         res.status(400).json({message:'missing information'})
     }
 
@@ -79,6 +83,10 @@ exports.UpdateFavorite = async (req, res, next) => {
 exports.DeleteFavorite = async (req, res, next) => {
 
     const id = req.params.id;
+
+    if(!id){
+        res.status(400).json({message:'missing information'});
+    }
 
     try {
 

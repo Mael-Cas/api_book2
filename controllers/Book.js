@@ -18,6 +18,9 @@ exports.GetOneBook = async (req, res, next) => {
     const id = req.params.id;
 
     try {
+        if(!id){
+            res.status(404).send({error: 'Missing information'});
+        }
 
         const connection = await sql.createConnection(dbconf)
         const [row] = await connection.execute('SELECT * FROM books WHERE book_id = ?', [id]);
@@ -66,7 +69,7 @@ exports.UpdateBook = async (req, res, next) => {
 
 
 
-    if(!title || !author || !cover_image || !category || !summary || !isbn){
+    if(!title || !author || !cover_image || !category || !summary || !isbn || !id){
         res.status(400).json({message:"missing information"});
     }else{
         try {
@@ -93,6 +96,10 @@ exports.UpdateBook = async (req, res, next) => {
 }
 exports.DeleteBook = async (req, res, next) => {
     const id = req.params.id;
+
+    if(!id){
+        res.status(400).json({message:"missing information"});
+    }
 
     try {
 

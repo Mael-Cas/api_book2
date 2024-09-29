@@ -30,7 +30,7 @@ exports.GetOneUser = async (req, res, next) => {
     try {
 
         const connection = await sql.createConnection(dbconf)
-        const [row] = await connection.execute('SELECT * FROM Users WHERE user_id = ?', [id]);
+        const [row] = await connection.execute('SELECT * FROM users WHERE user_id = ?', [id]);
         await connection.end();
         res.status(200).json(row);
 
@@ -88,7 +88,7 @@ exports.UpdateUser = async (req, res, next) => {
 
             const connection = await sql.createConnection(dbconf)
             const [result] = await connection.execute(
-                'UPDATE Users SET username = ?, email = ?, password = ?, role = ? WHERE user_id = ?',
+                'UPDATE users SET username = ?, email = ?, password = ?, role = ? WHERE user_id = ?',
                 [username, email, password, role, id]
             );
             await connection.end();
@@ -118,7 +118,7 @@ exports.DeleteUser = async (req, res, next) => {
     try {
 
         const connection = await sql.createConnection(dbconf)
-        const [result] = await connection.execute('DELETE FROM Users WHERE user_id = ?', [id]);
+        const [result] = await connection.execute('DELETE FROM users WHERE user_id = ?', [id]);
         await connection.end();
 
         if (result.affectedRows === 0) {
@@ -159,7 +159,7 @@ exports.LoginUser = async (req, res, next) => {
                 }else{
                     res.status(201).json({
                         userId: result[0].user_id,
-                        token: jwt.sign({userId: result[0].user_id, roles:result[0].role}, 'test', {expiresIn: '1h'})
+                        token: jwt.sign({userId: result[0].user_id, roles:result[0].role}, 'test', {expiresIn: '24h'})
                     });
                 }
             })

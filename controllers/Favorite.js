@@ -8,10 +8,10 @@ exports.GetAllFavorites = async (req, res, next) => {
         const connection = await sql.createConnection(dbconf);
         const [result] = await connection.execute('SELECT * FROM favorites');
         await connection.end();
-        res.status(200).json(result);
+        return res.status(200).json(result);
 
     }catch(error){
-        res.status(500).json({error})
+        return res.status(500).json({error})
     }
 
 }
@@ -28,9 +28,9 @@ exports.GetOneFavorite = async (req, res, next) => {
         const connection = await sql.createConnection(dbconf);
         const [result] = await connection.execute('SELECT books.* FROM books JOIN favorites ON books.book_id = favorites.book_id WHERE favorites.user_id = ?',[user_id]);
         await connection.end();
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }catch (error){
-        res.status(400).json({message:error});
+        return res.status(400).json({message:error});
     }
 
 }
@@ -47,9 +47,9 @@ exports.CreateFavorite = async (req, res, next) => {
         const connection = await sql.createConnection(dbconf);
         const [result] = await connection.execute('INSERT INTO favorites (user_id, book_id) VALUES (? , ?)', [user_id, book_id]);
         await connection.end();
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }catch (error){
-        res.status(400).json({message:error});
+        return res.status(400).json({message:error});
     }
 
 }
@@ -71,9 +71,9 @@ exports.UpdateFavorite = async (req, res, next) => {
             return res.status(404).send('Utilisateur non trouvé');
         }
 
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }catch (error){
-        res.status(400).json({message:error});
+        return res.status(400).json({message:error});
     }
 
 
@@ -98,10 +98,10 @@ exports.DeleteFavorite = async (req, res, next) => {
             return res.status(404).send('Utilisateur non trouvé');
         }
 
-        res.status(200).send('Utilisateur supprimé');
+        return res.status(200).send('Utilisateur supprimé');
 
     }catch (err){
-        res.status(400).send({error: err});
+        return res.status(400).send({error: err});
     }
 
 

@@ -1,10 +1,12 @@
 const express = require('express');
+const morgan = require('morgan');
 const UserRouter = require('./routes/User');
 const BookRouter = require('./routes/Book');
 const FavoritesRouter = require('./routes/Favorite');
 
 
 const app = express();
+app.use(morgan('combined'));
 app.use(express.json());
 
 app.use((req, res, next) => {

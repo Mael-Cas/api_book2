@@ -24,7 +24,7 @@ exports.GetOneUser = async (req, res, next) => {
 
     const id = req.params.id;
     if(!id){
-        res.status(400).json({message:'missing information'});
+        return res.status(400).json({message:'missing information'});
     }
 
     try {
@@ -112,7 +112,7 @@ exports.DeleteUser = async (req, res, next) => {
 
     const id = req.params.id;
     if(!id){
-        res.status(400).json({message:'missing information'});
+        return res.status(400).json({message:'missing information'});
     }
 
     try {

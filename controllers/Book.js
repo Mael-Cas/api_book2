@@ -19,7 +19,7 @@ exports.GetOneBook = async (req, res, next) => {
 
     try {
         if(!id){
-            res.status(404).send({error: 'Missing information'});
+            return res.status(404).send({error: 'Missing information'});
         }
 
         const connection = await sql.createConnection(dbconf)
@@ -98,7 +98,7 @@ exports.DeleteBook = async (req, res, next) => {
     const id = req.params.id;
 
     if(!id){
-        res.status(400).json({message:"missing information"});
+        return res.status(400).json({message:"missing information"});
     }
 
     try {

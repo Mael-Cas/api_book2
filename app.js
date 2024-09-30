@@ -1,7 +1,7 @@
 const express = require('express');
 const UserRouter = require('./routes/User');
 const BookRouter = require('./routes/Book');
-const FavoritesRouter = require('./routes/Favotite');
+const FavoritesRouter = require('./routes/Favorite');
 
 
 const app = express();

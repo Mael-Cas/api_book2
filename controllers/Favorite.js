@@ -21,7 +21,7 @@ exports.GetOneFavorite = async (req, res, next) => {
     const user_id = req.params.id;
 
     if(!user_id){
-        res.status(404).send({error: 'Missing information'});
+        return res.status(404).send({error: 'Missing information'});
     }
 
     try{
@@ -40,7 +40,7 @@ exports.CreateFavorite = async (req, res, next) => {
     const {user_id, book_id} = req.body;
 
     if(!user_id || !book_id){
-        res.status(400).json({message:'missing information'})
+        return res.status(400).json({message:'missing information'})
     }
 
     try {
@@ -59,7 +59,7 @@ exports.UpdateFavorite = async (req, res, next) => {
     const { user_id, book_id } = req.body;
 
     if(!user_id || !book_id || !id){
-        res.status(400).json({message:'missing information'})
+        return res.status(400).json({message:'missing information'})
     }
 
     try {
@@ -85,7 +85,7 @@ exports.DeleteFavorite = async (req, res, next) => {
     const id = req.params.id;
 
     if(!id){
-        res.status(400).json({message:'missing information'});
+        return res.status(400).json({message:'missing information'});
     }
 
     try {

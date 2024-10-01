@@ -6,12 +6,12 @@ exports.Auth = (req, res, next) => {
         const decoded = jwt.verify(token, 'TOKEN');
         const userId = decoded.id;
         const role = decoded.roles;
-        console.log(role);
+
         req.auth = {
             userId: userId,
             role: role
         };
-        console.log(req);
+
         next();
     }catch (error){
         res.status(401).send({error})

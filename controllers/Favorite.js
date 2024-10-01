@@ -82,16 +82,17 @@ exports.UpdateFavorite = async (req, res, next) => {
 }
 exports.DeleteFavorite = async (req, res, next) => {
 
-    const id = req.params.id;
+    const book_id = req.params.id;
+    const user_id = req.auth.userId;
 
-    if(!id){
+    if(!book_id || !user_id){
         return res.status(400).json({message:'missing information'});
     }
 
     try {
 
         const connection = await sql.createConnection(dbconf)
-        const [result] = await connection.execute('DELETE FROM favorites WHERE favorite_id = ?', [id]);
+        const [result] = await connection.execute('DELETE FROM favorites WHERE book_id = ? AND user_id = ?', [book_id, user_id]);
         await connection.end();
 
         if (result.affectedRows === 0) {

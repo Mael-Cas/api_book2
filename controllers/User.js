@@ -159,6 +159,7 @@ exports.LoginUser = async (req, res, next) => {
                 }else{
                     res.status(201).json({
                         userId: result[0].user_id,
+			role: result[0].role,
                         token: jwt.sign({userId: result[0].user_id, roles:result[0].role}, 'TOKEN', {expiresIn: '24h'})
                     });
                 }

@@ -4,12 +4,12 @@ exports.Auth = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
         const decoded = jwt.verify(token, 'TOKEN');
-        const userId = decoded.id;
+        const userId = decoded.userId;
         const role = decoded.roles;
 
         req.auth = {
             userId: userId,
-            role: role
+            role: role,
         };
 
         next();
